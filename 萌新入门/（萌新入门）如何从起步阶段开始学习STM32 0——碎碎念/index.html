@@ -1,0 +1,965 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="STM32系列单片机教学文档">
+      
+      
+        <meta name="author" content="CharlieChen, HNHKHNH">
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../%EF%BC%88%E8%90%8C%E6%96%B0%E5%85%A5%E9%97%A8%EF%BC%89%E5%A6%82%E4%BD%95%E4%BB%8E%E8%B5%B7%E6%AD%A5%E9%98%B6%E6%AE%B5%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0STM32%202%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E5%8D%95%E7%89%87%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%8A%9E%E6%B3%95/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../Awesome-Embedded.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>（萌新入门）如何从起步阶段开始学习STM32 —— 0.碎碎念 - Tutorial_STM32_BareMetal的文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#萌新入门如何从起步阶段开始学习stm32--0碎碎念" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Tutorial_STM32_BareMetal的文档" class="md-header__button md-logo" aria-label="Tutorial_STM32_BareMetal的文档" data-md-component="logo">
+      
+  <img src="../../Awesome-Embedded.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tutorial_STM32_BareMetal的文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              （萌新入门）如何从起步阶段开始学习STM32 —— 0.碎碎念
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换至暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="切换至亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tutorial_STM32_BareMetal的文档" class="md-nav__button md-logo" aria-label="Tutorial_STM32_BareMetal的文档" data-md-component="logo">
+      
+  <img src="../../Awesome-Embedded.png" alt="logo">
+
+    </a>
+    Tutorial_STM32_BareMetal的文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    萌新入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    萌新入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    （萌新入门）如何从起步阶段开始学习STM32 —— 0.碎碎念
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    （萌新入门）如何从起步阶段开始学习STM32 —— 0.碎碎念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#前言与导论" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        前言与导论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="前言与导论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#碎碎念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        碎碎念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以我到底需要知道哪些东西呢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以，我到底需要知道哪些东西呢
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#从一些基础的概念入手" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从一些基础的概念入手
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="从一些基础的概念入手">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#常见的工具和说法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见的工具和说法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见的工具和说法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#st公司" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ST公司
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mdk5-keil5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MDK5 (Keil5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cubemx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CubeMX
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如何使用mdk5的一些常用功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何使用MDK5的一些常用功能
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="如何使用MDK5的一些常用功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mdk5的一些常见的设置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MDK5的一些常见的设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%EF%BC%88%E8%90%8C%E6%96%B0%E5%85%A5%E9%97%A8%EF%BC%89%E5%A6%82%E4%BD%95%E4%BB%8E%E8%B5%B7%E6%AD%A5%E9%98%B6%E6%AE%B5%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0STM32%202%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E5%8D%95%E7%89%87%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%8A%9E%E6%B3%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    （萌新入门）如何从起步阶段开始学习STM32 2——关于单片机程序的下载和调试办法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%EF%BC%88%E8%90%8C%E6%96%B0%E5%85%A5%E9%97%A8%EF%BC%89%E5%A6%82%E4%BD%95%E4%BB%8E%E8%B5%B7%E6%AD%A5%E9%98%B6%E6%AE%B5%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0STM32%204%20%E2%80%94%E2%80%94%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    （萌新入门）如何从起步阶段开始学习STM32 4 ——如何构建可复用的C语言代码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%EF%BC%88%E8%90%8C%E6%96%B0%E5%85%A5%E9%97%A8%EF%BC%89%E5%A6%82%E4%BD%95%E4%BB%8E%E8%B5%B7%E6%AD%A5%E9%98%B6%E6%AE%B5%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0STM32%20%E2%80%94%E2%80%94%201%E5%A6%82%E4%BD%95%E8%BF%81%E7%A7%BB%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E7%89%88%E7%9A%84%E5%B7%A5%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    （萌新入门）如何从起步阶段开始学习STM32 —— 1如何迁移一个开发版的工程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    萌新入门
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="萌新入门如何从起步阶段开始学习stm32--0碎碎念">（萌新入门）如何从起步阶段开始学习STM32 —— 0.碎碎念<a class="headerlink" href="#萌新入门如何从起步阶段开始学习stm32--0碎碎念" title="链接到此章节">&para;</a></h1>
+<h2 id="前言与导论">前言与导论<a class="headerlink" href="#前言与导论" title="链接到此章节">&para;</a></h2>
+<p>​   非常感谢<a href="https://blog.csdn.net/2301_77816627?type=blog">2301_77816627-CSDN博客</a>的提问，他非常好奇如何在起步的阶段学习STM32。笔者自己也是没学多久的STM32，当然下面的说法会有一些漏洞。但是，我仍然想分享一下自己对学习STM32的看法。中间肯定会有不少的疏漏，烦请各位看官大佬见笑了，如果有任何错误，可以直接犀利的在评论区指出，或者给我任何建议，我会第一时间同您交流！</p>
+<h3 id="碎碎念">碎碎念<a class="headerlink" href="#碎碎念" title="链接到此章节">&para;</a></h3>
+<p>​   大部分人可能是从51单片机开始学习，笔者自己也是大一的时候学习过非常粗浅的51单片机，在后来需要项目应用的时候才去学习STM32，我相信不少人更多的是从应用层开始接触我们的STM32的。</p>
+<p>​   一个非常经典的疑问就是——我手头有一块非常巨大的开发板，比如说笔者现在敲电脑的旁边就是一块STM32G431RBT6开发板和正点原子家的STM32F103ZET6精英开发板，或者是一块非常迷你的核心板（最小系统板），比如我的左手边就是若干的STM32F103C8T6核心板。当然，这些概念可能会一下把萌新吓跑，在你慌张的准备退出这个标签的时候不妨留步，烦请听我慢慢道来。</p>
+<p>​   嵌入式单片机领域，如果没有上过前置的课程，那可能会显得相当困难。</p>
+<p>​   比如说微机原理（这里属于单片机开发体系当中的架构层次，也就是说，我们眼中的STM32单片机，是一个叫做ARM架构派生的一个产品，您不妨理解为根据这个arm架构的模板，开发出来的），在这个层次上，我们正在讨论的，会是非常具体的（对于架构具体，对萌新而言是灾难）行为——比如说，我如何操作寄存器来控制一个GPIO口的高低电平呢？我如何通过向一个地址写东西来控制实际映射到的外设呢？</p>
+<p>​   比如说数电和模电——这样的电路怎么样就实现了我们GPIO的开漏推挽输出呢？如何实现了IIC协议的硬件层次通信呢？如何就让我们的USART就可以进行一定的串行通信了，又如何进行一定的收发呢？SPI硬件电如何保证了我们描述是否接受到信号发出信号的呢？</p>
+<p>​   比如说C语言甚至是ARM架构汇编，编程语言是我们操纵手头的小单片机，焕发巨大魔力的有利的，直接的工具，他是我们应用层代码——何为应用层？就是直接看得到，摸的着的现象。比如说，当我们讨论</p>
+<blockquote>
+<p>喂！把PA3上外接的LED灯点亮！</p>
+<p>好嘞！我这边手头刚处理好使用硬件IIC完成OLED的通信业务逻辑！</p>
+</blockquote>
+<p>的时候，我们就是在完成应用层，也就是最后直接跟用户对接的部分。</p>
+<p>​   还有其他非常多的，甚至包括不少人不屑一谈，但是实际上劝退大把人的代码移植（隶属于编译技术），报错处理（笔者甚至遇到大把完全不懂编译器链接器的），软件工程（完全不知道如何组织自己项目的）等等，单片机的学习，在这里就可以提现出来了——<strong>非常的杂，软件硬件都有所交叉，甚至还要延伸到最底层的计算机架构（</strong>可以不懂嘛？可以不懂，但代价就是出现问题了你只能两手一摆，拿着示波器逻辑分析仪一顿瞎分析，还没有所以然，写一个代码完全没办法移植修修改改，对面的哥们更改两行代码就完成了整个工程的移植）</p>
+<p>​   所以，笔者在这里，需要尝试整理一下，学习单片机，哪些领域，哪些层级是你需要注意的</p>
+<blockquote>
+<p>会用的层级：你不需要关心你的板子到底做了什么，你只需要知道<strong>常见的单片机自身的概念，常用外设的概念，常见协议的概念</strong>。你知道如何<strong>配置Cubemx完成你的目的</strong>，你知道如何<strong>操作Keil来烧录上传你的板子</strong>，你知道如何使用<strong>STLink或者是DAP完成你对你手头板子的调试工作</strong>。你知道如何使用常见的排查手段——<strong>硬件上是示波器，万用表，逻辑分析仪；软件上是打串口日志，对非时序敏感的器件做调试操作等等。</strong>你不知道，也会葫芦吞枣的去根据别人的博客猜测可能的步骤。</p>
+<p>理解的层级：慢慢的，会开始关注拿到<strong>新器件的手册，新开发板的手册</strong>，知道如何去根据自己的目的查询对应的关键词查询你的问题，你会去熟悉常见的你需要看的配置和资源有哪些（IO口？使用的协议和对应的状态？），你会去查询常见协议的设计的思路和实现的原理，甚至去扒电路图看看特定的你感兴趣的部分的电路实现。</p>
+<p>更高的层次：现在，可能会去查询arm的手册看看你手头的芯片到底是怎么一回事。他是如何被设计的，因此可以用在哪些场景。你会设计一个庞大的嵌入式系统完成一个特定的任务，而且知道出现在眼前的问题如何使用更加准确的手段排查。笔者完全没到这个地步，但是认识的佬不少远超于这个水平，实在让人难以追赶，哈哈！</p>
+</blockquote>
+<h3 id="所以我到底需要知道哪些东西呢">所以，我到底需要知道哪些东西呢<a class="headerlink" href="#所以我到底需要知道哪些东西呢" title="链接到此章节">&para;</a></h3>
+<ol>
+<li>首先，如果完全没有接触过<strong>C语言，电路分析和派生的数电模电</strong>课程，笔者真心的建议你好好学学，不着急立马开始玩单片机，否则，你也不过是照搬别人的东西，自己什么也学不会，别人一问三不知。</li>
+<li>你需要学习如何使用常见的工具：对于初学者，你会使用MDK5(Keil)完成单片机的开发（当然可以是CubeIDE），或者使用CubeMX快速的生成对ST家的芯片的配置模板。你要理解<strong>编辑器，编译器，链接器的存在，和他们到底在干什么的作用</strong>，笔者之前潜伏在正点原子的群里，就发现大量的人完全混淆这些概念，导致MDK的抛错完全看不懂，这是嵌入式教学中的一个巨大的失误——不对你使用的工具进行详细的介绍和说明他们到底在做什么的讲解，导致不少新人完全不知道发生了什么，代码怎么就跑起来了。当然，笔者比较温和，实际上现在不知道问题也不大，多接触一些慢慢会有所感觉。这里不过是抛出这些概念罢了</li>
+<li>你需要理解常见的概念。当我们讨论——GPIO口，上拉下拉，外设等等的概念的时候，你可以对应的查询相关的概念。<strong>递归式的学习每一个出现的新名词，直到达到自己学习的极限</strong>。对于单片机，我们会说GPIO口（如何跟外围的设备进行交互），时钟树和晶振速度（你的单片机工作的速度多快？），定时器（字面含义）等等的概念，具体的你购买开发板的时候肯定会附送资料，跟着学！</li>
+<li><strong>你需要学习如何阅读手册</strong>，教程可以算作你的手册，购买外设商家附送的网盘资料可以是你的手册，一些datasheet网站上收录的手册也可以是你的参考资料，<strong>学习根据手册进行编程，是一个嵌入式人的标准素养</strong></li>
+<li><strong>你需要学会使用单片机提供的能力操作你的外设</strong>，事实上这个是最先的。大部分的人首先会完成点亮一个LED的小实验，请记住，拿到一个板子，当你学会点亮一个LED的时候，你就正式的入门这个板子的使用了。随后，你还会驱动比如说其他更加复杂的外设。对摁键的检测，对OLED的控制，对电机舵机的把控等等。从这里开始，你就进入了应用层的学习，逐步走上正轨了。</li>
+</ol>
+<p>​   最基本的步骤就是如此。</p>
+<h2 id="从一些基础的概念入手">从一些基础的概念入手<a class="headerlink" href="#从一些基础的概念入手" title="链接到此章节">&para;</a></h2>
+<h3 id="常见的工具和说法">常见的工具和说法<a class="headerlink" href="#常见的工具和说法" title="链接到此章节">&para;</a></h3>
+<h4 id="st公司">ST公司<a class="headerlink" href="#st公司" title="链接到此章节">&para;</a></h4>
+<p>​   当你打开这篇文章的时候，你肯定已经拥有了一块ST家的单片机（比如说STM32F103ZET6），但是不知道如何进行学习。ST是一个搞单片机的公司，你可以认为手中的这个芯片就是他们家的东西。</p>
+<h4 id="mdk5-keil5">MDK5 (Keil5)<a class="headerlink" href="#mdk5-keil5" title="链接到此章节">&para;</a></h4>
+<p>​   还记得你写C语言嘛？在大学里，笔者的老师要求我们使用老毕等VC6.0编辑器编辑我们的代码，我自己是VSCode/QtCreator写C/C++，算法竞赛党喜欢使用Code Block或者是Dev C++ 完成开发，他们都属于一个叫做IDE的产物。IDE,也就是集成开发环境，为你包揽万象，你不需要关心如何完全的配置你的编译器链接器，编辑器，调试器设置，他们通通被IDE接管了。你只需要在IDE中点点瞧瞧，点这个摁扭点那个按钮，事情就结束了。</p>
+<p>​   在嵌入式中，一个最为经典的方案就是拿MDK5作为IDE开发单片机。</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/DaXiongRen/article/details/120072979">Keil MDK5安装详细步骤-CSDN博客</a></p>
+</blockquote>
+<p>​   笔者随手搜了一下就搜到了安装的办法。<strong>学会使用搜索引擎是你学习嵌入式的一个重要的保障！</strong></p>
+<h4 id="cubemx">CubeMX<a class="headerlink" href="#cubemx" title="链接到此章节">&para;</a></h4>
+<p>​   CubeMX是ST家为了让他们的芯片更加容易的被开发，使用Java开发的一个好用的快速配置软件，它可以快速的生成一个已经完成了初始化代码的工程模板，比如说，正点原子的教程幸苦的写了2个小时的代码，CubeMX点几下，然后生成工程，进去把LED电平差拉起来，LED就点亮了，前后不超过3分钟。对于初学者，这个软件能够快速的方便的生成一部分代码，但是对自己更长远的发展和学习不利，笔者建议是——写业务速速用，学习的时候，还是先理解每一个文件在做什么比较好。</p>
+<p><a href="https://www.st.com/en/development-tools/stm32cubemx.html">STM32CubeMX - STM32Cube initialization code generator - STMicroelectronics</a></p>
+<p>​   具体的介绍，请参考官方网站，注意的是——学习英文也是嵌入式中不可或缺的一部分，因为大部分的文档都是英文的（笑）。</p>
+<h3 id="如何使用mdk5的一些常用功能">如何使用MDK5的一些常用功能<a class="headerlink" href="#如何使用mdk5的一些常用功能" title="链接到此章节">&para;</a></h3>
+<h4 id="mdk5的一些常见的设置">MDK5的一些常见的设置<a class="headerlink" href="#mdk5的一些常见的设置" title="链接到此章节">&para;</a></h4>
+<p>​   笔者写了两年的单片机，大大小小的项目过来，发现常见的需要改动的配置，这里我会说明一下。笔者随手打开了一个STM32F407ZGT6的，正点原子的工程。</p>
+<p>​   打开界面，在你的左手侧的栏内，这是一个讲述的点：</p>
+<p><img alt="image-20250214131257408" src="image-20250214131257408.png" /></p>
+<p>这就是一个典型的目录工程结构。<strong>当然，如何分类是自由的，笔者就不喜欢分成这样，喜欢分成include和source后，根据是哪个外设的控制进行单独的分类</strong>，你喜欢分成如何，需要自己在开发当中慢慢体会，慢慢就会知道每一种分发的优缺点何在。这不是讲博客就能说的彻底。笔者决定将这个问题留给即将启程学习STM单片机的你。</p>
+<p><img alt="image-20250214131454562" src="image-20250214131454562.png" /></p>
+<p>​   （笔者使用的VSCode下自己开发的图形显示框架目录结构）</p>
+<p>​   你当然可以添加你自己的C语言文件和头文件，甚至后面可以是汇编文件，取决于你的开发的场景，还有你的水平（笑）</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/bankexinan/article/details/109640994">Keil工程添加源文件和头文件（.c和.h）的方法_keil添加头文件.h-CSDN博客</a></p>
+</blockquote>
+<p><img alt="image-20250214131750110" src="image-20250214131750110.png" /></p>
+<p>​   另一个我们打交道的是这个地方。前四个图标设计到的概念是构建。</p>
+<p>​   翻开你的C语言教程，自己默念五次自己写的程序如何从C语言文件到汇编文件再到二进制可执行文件。一般而言，我们会生成.hex文件（关于hex文件的生成规则和到底如何使用，这不属于萌新范畴的知识，感兴趣的朋友自行查阅，对于完全无基础的朋友，我打赌你会灰溜溜的回来继续看我写的内容的），也就是说，我们的IDE，会<strong>收集我上面显示工程内的所有的C语言源文件</strong>。注意，<strong>是所有的！</strong>，所以，小心重复的添加C语言源文件，否则它会被编译两次！在链接的时候就会触发符号重定义的错误。</p>
+<p>​   我们先到魔术棒（也就是LED下拉框的右侧），点一下他，就会跳出来这个界面👇常见的一般我们会接触到这些设置：</p>
+<ol>
+<li>arm编译器的版本——这是设计到编译器的特征的时候会考虑的，一般而言，萌新不需要考虑这个，直到就好</li>
+<li>是否使用微库——微库是编译器自身实现的一些常见的C语言的工具函数，一般的除非明确启用，一般我们都是自己实现。</li>
+</ol>
+<p><img alt="image-20250214133628361" src="image-20250214133628361.png" /></p>
+<p>​   <strong>来到Output选项卡，如果你是使用一个完全空白的工程，一般而言，不会生成可以进行烧录的hex，我们就是在这里进行更改！勾选Create HEX File生成可以被烧录的二进制文件。</strong></p>
+<p><img alt="image-20250214134012175" src="image-20250214134012175.png" /></p>
+<p>​   旁边的C/C++编译器设置则是更加高级的一些C/C++设置。一般而言，<strong>找不到头文件/目标代码没被参与编译/更改编译的选项</strong>等的议题，都是在这里进行解决的。如果不清楚具体改什么，笔者建议自己到搜索引擎上查明白。</p>
+<p>​   这里，重点介绍Define和IncludePath两个选项：</p>
+<ul>
+<li>
+<p>define则是说明预定义的宏，不懂什么是宏的，去查<code>#define</code>，这是C语言的知识的范畴</p>
+</li>
+<li>
+<p>includePath说明了头文件的检索路径，当你发现你的头文件找不到的时候，需要设置头文件的检索路径，你需要点击includePath后面的三个...进行添加，一般而言，添加哪个文件夹，他只会扫描当前文件夹的所有文件，如果你的头文件在这个路径之下的一个子文件夹中，他是不会递归搜索的</p>
+</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>当只有include ./Core
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>-Core
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a>|-----a.h     // #include &quot;a.h&quot;可以找到
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="4 "></span></a>|-----b.h     // #include &quot;b.h&quot;可以找到
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos="5 "></span></a>|-----c
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos="6 "></span></a>    |---d.h   // #include &quot;d.h&quot;找不到，但是#include&quot;c/d.h&quot;可找到
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos="7 "></span></a>    |---e.h   // #include &quot;e.h&quot;找不到，但是#include&quot;c/e.h&quot;可找到
+</span></code></pre></div>
+<p><img alt="image-20250214134249311" src="image-20250214134249311.png" /></p>
+<p>​   下面的内容跟调试精密相关了</p>
+<p>​   笔者使用的是STLink和DAP比较多，你需要做的是在笔者框处的地方做设置</p>
+<p><img alt="image-20250214134904472" src="image-20250214134904472.png" /></p>
+<p>​   设置下拉框为你使用的调试器。STLink V2那就是STLink-Debugger，DAP那就是如图所示的，JLink那就是JLink Debugger.</p>
+<p><img alt="image-20250214135111094" src="image-20250214135111094.png" /></p>
+<p>​   点击Settings，在这里，你可以看到调试器现在的工作状态，正常的说，当你选择好调试器之后，给板子和调试器上电，就会看到ID号，举个例子：</p>
+<p>​   笔者连接好了DAP和STM32F407ZGT6后，就会出现这样的界面，到这里，基本上板子就可与被烧录了，<img alt="image-20250214135256315" src="image-20250214135256315.png" /></p>
+<p>记住，你还需要到这个地方，也就是讲选项卡从Debug切换到Flash Download去，勾选Reset And Run，这是因为调试器上传结束程序后，默认的行为是等待我们手动RESET后才会重新执行（比如嗯下开发板上的reset摁扭），这里我们勾选后就不用设置了。</p>
+<p><img alt="image-20250214135408369" src="image-20250214135408369.png" /></p>
+<p>​   回到这里，下面框处的摁扭，就是在完成上述的工作后，点击就会进行你编译结束的程序的上传（注意<strong>每一次上传之前，必须编译！</strong>不然会烧老的代码，就会发现你写的代码没有实现效果的更改！）。</p>
+<p><img alt="image-20250214135530811" src="image-20250214135530811.png" /></p>
+<p>​   关于调试，实在太多，请看大佬的博客：</p>
+<p><a href="https://blog.csdn.net/yli001/article/details/130505875">Keil5软件使用-进阶调试篇_keil调试教程-CSDN博客</a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2025年12月17日 20:59:51 CST">2025年12月17日 20:59:51</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime" title="2025年12月17日 20:59:51 CST">2025年12月17日 20:59:51</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="上一页: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../%EF%BC%88%E8%90%8C%E6%96%B0%E5%85%A5%E9%97%A8%EF%BC%89%E5%A6%82%E4%BD%95%E4%BB%8E%E8%B5%B7%E6%AD%A5%E9%98%B6%E6%AE%B5%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0STM32%202%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E5%8D%95%E7%89%87%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%8A%9E%E6%B3%95/" class="md-footer__link md-footer__link--next" aria-label="下一页: （萌新入门）如何从起步阶段开始学习STM32 2——关于单片机程序的下载和调试办法">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                （萌新入门）如何从起步阶段开始学习STM32 2——关于单片机程序的下载和调试办法
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 CharlieChen, HNHKHNH - 保留所有权利
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Awesome-Embedded-Learning-Studio" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:725610365@qq.com" target="_blank" rel="noopener" title="发送邮件" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M536.4-26.3c9.8-3.5 20.6-1 28 6.3s9.8 18.2 6.3 28l-178 496.9c-5 13.9-18.1 23.1-32.8 23.1-14.2 0-27-8.6-32.3-21.7l-64.2-158c-4.5-11-2.5-23.6 5.2-32.6l94.5-112.4c5.1-6.1 4.7-15-.9-20.6s-14.6-6-20.6-.9l-112.4 94.3c-9.1 7.6-21.6 9.6-32.6 5.2L38.1 216.8c-13.1-5.3-21.7-18.1-21.7-32.3 0-14.7 9.2-27.8 23.1-32.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "toc.integrate", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.select", "content.code.annotate", "content.tabs.link", "content.tooltips", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
