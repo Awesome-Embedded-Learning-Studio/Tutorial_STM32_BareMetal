@@ -1,0 +1,10 @@
+{
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.(c|cpp|h|hpp)$",
+                "cmd": "workbench.action.tasks.runTask Generate compile_commands"
+            }
+        ]
+    }
+}

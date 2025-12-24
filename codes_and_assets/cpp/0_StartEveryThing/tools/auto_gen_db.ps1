@@ -1,0 +1,1 @@
+pio run -t compiledb | Out-Null
